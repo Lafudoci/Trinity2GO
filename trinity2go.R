@@ -25,9 +25,9 @@ library(org.Hs.eg.db)
 library(GO.db)
 
 
-#Process clc expression table
+#Process trinity expression table
 
-refAnnot <- read.csv("~/Documents/2016denovo/trinity_out_dir_all6/uniList_transcripts.txt")
+refAnnot <- read.csv("~/2015denovo/GB123/2015_uniList_transcripts.txt")
 #視需要修改annotation的來源文件
 
 if( oppsiteSign == "Y"){
@@ -41,7 +41,7 @@ if( oppsiteSign == "Y"){
 expAnnot <- merge(expDE, refAnnot, by= "Name")
 write.csv(expAnnot, paste0(expName,"Annot.csv"), row.names=F)
 
-expTable <- expAnnot[c(1,2,5,6,7)]
+expTable <- expAnnot[c(1,4,6,7,8)]
 expTableFilted <- subset(expTable, expTable$FDR<= 0.05 )
 expTableVar <- subset(expTableFilted, abs(expTableFilted$logFC) >= 0.5 )
 
@@ -49,7 +49,7 @@ expTableVar <- subset(expTableFilted, abs(expTableFilted$logFC) >= 0.5 )
 #write.csv(expTableFilted, paste0(expName,"Table.csv"), row.names=F)
 write.csv(expTableVar, paste0(expName,"VarTable.csv"), row.names=F)
 
-spFCMean <-aggregate(cbind(expTableVar[2],expTableVar[3]), by=list(UNIPROT=expTableVar[[4]]), FUN=mean)
+spFCMean <-aggregate(cbind(expTableVar[2],expTableVar[3]), by=list(UNIPROT=expTableVar[[5]]), FUN=mean)
 write.csv(spFCMean, paste0(expName,"spFCMean.csv"), row.names=F)
 
 Sp2Enz <- bitr(spFCMean[,1], fromType=c("UNIPROT"), toType=c("ENTREZID"), OrgDb ="org.Hs.eg.db")
