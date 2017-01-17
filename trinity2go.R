@@ -31,9 +31,9 @@ refAnnot <- read.csv("~/2015denovo/GB123/2015_uniList_transcripts.txt")
 #視需要修改annotation的來源文件
 
 if( oppsiteSign == "Y"){
-  expDE[c(2,3)] <- c( -expDE[2] , -expDE[3])
+  expDE[4] <- -expDE[4]
 } else if ( oppsiteSign == "y") {
-  expDE[c(2,3)] <- c( -expDE[2] , -expDE[3])
+  expDE[4] <- -expDE[4]
 } else if ( oppsiteSign == "N") {
 } else if ( oppsiteSign == "n") {
 } else { stop("錯誤:無法辨識反轉FC sign指令") }
